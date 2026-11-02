@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, useVideoConfig} from 'remotion';
-import {C, CONFIG, Product, beatToFrame, productById} from '../../config';
+import {C, CONFIG, Product, beatToFrame, framesToTicks, productById} from '../../config';
 import {ProductArt} from '../../components/Art';
 import {AppButton, AppHeader, CARD_H, Chip, ProductCard, StatusBar, UrgencySummary} from '../../components/AppUI';
 import {Paper, anton, inter} from '../../components/Base';
@@ -27,13 +27,8 @@ const toFrame = (sx: number, sy: number, px = PX, py = PY) => [px - SCREEN.w / 2
 const usePhases = () => {
   const {fps} = useVideoConfig();
   const base = beatToFrame(B.scan, fps);
-  const k = 30 / fps;
-  return {
-    sort: (beatToFrame(B.sort, fps) - base) * k,
-    alert: (beatToFrame(B.alert, fps) - base) * k,
-    done: (beatToFrame(B.done, fps) - base) * k,
-    end: (beatToFrame(B.result, fps) - base) * k,
-  };
+  const k = (b: number) => framesToTicks(beatToFrame(b, fps) - base, fps);
+  return {sort: k(B.sort), alert: k(B.alert), done: k(B.done), end: k(B.result)};
 };
 
 // ════════════════════════════════════════════ ÉCRAN 1 : SCAN
@@ -117,7 +112,7 @@ const ScanScreen: React.FC<{t: number}> = ({t}) => {
           width: r.w,
           height: r.h,
           borderRadius: 18,
-          boxShadow: `0 0 0 2000px rgba(14,26,58,${0.18 + lockP * 0.32})`,
+          boxShadow: `0 0 0 2000px rgba(14,26,58,${0.06 + lockP * 0.14})`,
           transform: `scale(${pulse})`,
         }}
       >
@@ -149,9 +144,9 @@ const ScanScreen: React.FC<{t: number}> = ({t}) => {
       </div>
 
       {/* UI caméra */}
-      <StatusBar color={C.white} />
+      <StatusBar />
       <div style={{position: 'absolute', top: 96, left: 0, right: 0, display: 'flex', justifyContent: 'center'}}>
-        <span style={{...inter(26, 700, C.white), background: 'rgba(14,26,58,0.72)', borderRadius: 999, padding: '12px 26px', display: 'flex', alignItems: 'center', gap: 10}}>
+        <span style={{...inter(26, 700, C.white), background: C.blue, borderRadius: 999, padding: '12px 26px', display: 'flex', alignItems: 'center', gap: 10}}>
           {locked ? (
             <>
               <Check size={28} p={tw(t, [38, 44], [0, 1])} /> Date trouvée

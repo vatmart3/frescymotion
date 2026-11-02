@@ -114,13 +114,13 @@ export const Bin: React.FC<{size: number; lid: number; children?: React.ReactNod
     </defs>
     {/* contenu qui tombe dedans (masqué par le corps) */}
     <g clipPath="url(#bin-mouth)">{children}</g>
-    <path d="M30 70 L170 70 L158 232 Q157 242 147 242 L53 242 Q43 242 42 232 Z" fill={C.ink} {...S} />
+    <path d="M30 70 L170 70 L158 232 Q157 242 147 242 L53 242 Q43 242 42 232 Z" fill={C.blueDeep} {...S} />
     {[70, 100, 130].map((x) => (
-      <path key={x} d={`M${x} 92 L${x - (x - 100) * 0.08} 220`} stroke={C.blueDeep} strokeWidth={8} strokeLinecap="round" />
+      <path key={x} d={`M${x} 92 L${x - (x - 100) * 0.08} 220`} stroke={C.blue} strokeWidth={8} strokeLinecap="round" />
     ))}
     <rect x={64} y={236} width={34} height={12} rx={5} fill={C.blueDeep} {...S} />
     <g transform={`rotate(${-lid * 72} 176 66)`}>
-      <rect x={20} y={50} width={160} height={22} rx={10} fill={C.blueDeep} {...S} />
+      <rect x={20} y={50} width={160} height={22} rx={10} fill={C.blue} {...S} />
       <rect x={82} y={40} width={36} height={12} rx={5} fill={C.ink} {...S} />
     </g>
   </svg>

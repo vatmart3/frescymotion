@@ -39,8 +39,8 @@ export const Phone: React.FC<{
           inset: 0,
           transform: `translate(${28 + rotY * 3}px, ${46}px) scale(${scale * 0.97}) rotate(${rotZ}deg)`,
           borderRadius: PHONE.radius,
-          background: 'rgba(20,45,140,0.30)',
-          filter: 'blur(38px)',
+          background: 'rgba(20,45,140,0.18)',
+          filter: 'blur(40px)',
           opacity: bezelOpacity,
         }}
       />
@@ -57,9 +57,9 @@ export const Phone: React.FC<{
             position: 'absolute',
             inset: 0,
             borderRadius: PHONE.radius,
-            background: C.ink,
+            background: C.blueDeep,
             opacity: bezelOpacity,
-            boxShadow: `inset 0 0 0 3px ${C.blueDeep}, inset 0 0 0 6px #22305a`,
+            boxShadow: `inset 0 0 0 3px ${C.blue}, inset 0 0 0 6px ${C.blueDeep}`,
           }}
         />
         <div

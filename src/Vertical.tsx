@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Sequence, useVideoConfig} from 'remotion';
-import {C, CONFIG, beatToFrame} from './config';
+import {C, CONFIG, beatToFrame, ticksToFrames} from './config';
 import {Defs, Grain, SafeZones} from './components/Base';
 import {TicketCurtain} from './components/Curtain';
 import {LeafWipe} from './components/Leaf';
@@ -21,7 +21,7 @@ export const FrescyVertical: React.FC<VerticalProps> = ({showSafeZones}) => {
   const {fps, width, height} = useVideoConfig();
   const B = CONFIG.vertical.beats;
   const f = (b: number) => beatToFrame(b, fps);
-  const ticks = (n: number) => Math.round((n * fps) / 30);
+  const ticks = (n: number) => ticksToFrames(n, fps);
   const WIPE = ticks(16);
   const seq = (from: number, to: number, extra = 0) => ({from: f(from), durationInFrames: f(to) - f(from) + extra});
 

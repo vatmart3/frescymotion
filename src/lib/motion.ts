@@ -1,4 +1,5 @@
 import {Easing, interpolate, spring, useCurrentFrame, useVideoConfig} from 'remotion';
+import {framesToTicks} from '../config';
 
 /** Ease-out fort (entrées) */
 export const EASE_OUT = Easing.bezier(0.16, 1, 0.3, 1);
@@ -23,7 +24,7 @@ const CLAMP = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 export const useT = () => {
   const frame = useCurrentFrame();
   const {fps} = useVideoConfig();
-  return (frame * 30) / fps;
+  return framesToTicks(frame, fps);
 };
 
 /** interpolate() borné, avec easing optionnel */

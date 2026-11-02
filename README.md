@@ -4,7 +4,7 @@ Deux compositions :
 
 | ID | Format | Durée | État |
 |---|---|---|---|
-| `Frescy-Vertical` | 1080×1920 (9:16), 30 i/s | 30,0 s (55 temps à 110 BPM) | ✅ prête à valider |
+| `Frescy-Vertical` | 1080×1920 (9:16), 30 i/s | 35,0 s (56 temps à 96 BPM) | ✅ prête à valider |
 | `Frescy-Horizontal` | 1920×1080 (16:9), 30 i/s | 40 s | ⏳ après validation de la 9:16 |
 
 ## Démarrer
@@ -27,7 +27,7 @@ npx remotion render Frescy-Vertical out/frescy-vertical-9x16.mp4 --codec=h264 --
 ## Tout changer en 10 secondes : `src/config.ts`
 
 Couleurs, textes, produits (noms, dates, prix), seuils d'urgence, textes de l'alerte, chiffres du relevé,
-découpage des scènes **en temps musicaux** (`vertical.beats`). Le total du ticket « TOTAL JETÉ » est recalculé
+découpage des scènes **en temps musicaux** (`vertical.beats`) et tempo (`bpm`) : baisser le BPM ralentit toute la vidéo en gardant les coupes sur les temps. Le total du ticket « TOTAL JETÉ » est recalculé
 automatiquement à partir des prix.
 
 ## Structure
@@ -43,57 +43,57 @@ src/scenes/vertical/       Hook, Problem, Twist, Demo (scan → tri → alerte �
 public/fonts/              Anton, Inter (500–800), Caveat (600–700) en .woff2 local
 ```
 
-## Temps forts (110 BPM, 1 temps = 0,545 s) — pour caler la musique dans CapCut
+## Temps forts (96 BPM, 1 temps = 0,625 s) — pour caler la musique dans CapCut
 
-Mesures (tous les 4 temps) : **0,00 · 2,18 · 4,36 · 6,55 · 8,73 · 10,91 · 13,09 · 15,27 · 17,45 · 19,64 · 21,82 · 24,00 · 26,18 · 28,36 · 30,00**
+Mesures (tous les 4 temps) : **0,00 · 2,50 · 5,00 · 7,50 · 10,00 · 12,50 · 15,00 · 17,50 · 20,00 · 22,50 · 25,00 · 27,50 · 30,00 · 32,50 · 35,00**
 
 Coupes de scène (toutes sur un temps) :
 
 | Temps | Timecode | Scène |
 |---|---|---|
 | 0 | 0,00 s | Hook |
-| 4 | 2,18 s | Problème |
-| 12 | 6,55 s | Twist (feuille → bleu) |
-| 16 | 8,73 s | Démo · scan |
-| 21 | 11,45 s | Démo · tri |
-| 27 | 14,73 s | Démo · alerte |
-| 33 | 18,00 s | Démo · validation |
-| 39 | 21,27 s | Résultat (ticket-rideau à 20,87 s) |
-| 47 | 25,64 s | Signature + CTA (image fixe à partir de 28,5 s) |
+| 4 | 2,50 s | Problème |
+| 13 | 8,12 s | Twist (feuille → bleu) |
+| 17 | 10,62 s | Démo · scan |
+| 22 | 13,75 s | Démo · tri |
+| 28 | 17,50 s | Démo · alerte |
+| 34 | 21,25 s | Démo · validation |
+| 40 | 25,00 s | Résultat (ticket-rideau à 24,54 s) |
+| 48 | 30,00 s | Signature + CTA (image fixe à partir de 33,28 s) |
 
 ## Bruitages à caler (9:16)
 
-| Timecode | Son | Quoi |
+| Timecode (s) | Son | Quoi |
 |---|---|---|
 | 0,00 | sifflement court | le yaourt tombe |
-| 0,40 | « toc » plastique | il tape le rebord |
-| 1,00 | **« clac »** poubelle | le couvercle claque (temps 2) |
-| 1,55 → 1,95 | feutre | « sois honnête » s'écrit |
-| 2,28 → 3,90 | imprimante thermique (4 à-coups : 2,98 · 3,28 · 3,58 · 3,88) | ticket des pertes |
-| 2,38 · 2,68 · 2,98 · 3,28 | « tic » léger | étiquettes qui virent à l'orange |
-| 2,92 · 3,22 · 3,52 · 3,82 | « bloup » sourd | produits qui tombent du rayon |
-| 4,22 | **« ding »** de caisse | TOTAL JETÉ 11,10 € |
-| 4,91 | **« tchac »** tampon + mini-secousse | PERDU (temps 9) |
-| 6,55 → 7,05 | frottement feuille | essuyage vers le bleu |
-| 7,64 | « pop » doux | la feuille se plante sur le y (temps 14) |
-| 8,73 → 9,26 | « zoup » | l'écran bleu rentre dans le téléphone |
-| 9,99 | « bip » / « tic » | date détectée |
-| 10,73 | « pop » | la date se pose dans la fiche |
-| 11,52 → 12,02 | 6 « tic » en cascade | les cartes tombent dans la liste |
-| 12,25 → 12,60 | glissé de cartes | tri par urgence |
-| 14,83 / 15,13 | glissé + **« ding »** | notification |
-| 15,86 | « tic » | tap « Passer à -20 % » |
-| 16,29 | **« pop »** sticker | -20 % collé de travers |
-| 18,60 | « tic » | tap « C'est fait » |
-| 18,75 → 19,00 | « ding » validé | coche qui se dessine, carte verte |
-| 19,47 | glissé | la carte quitte la liste |
-| 20,87 → 21,60 | papier qui défile | ticket-rideau |
-| 21,87 → 22,87 | cliquetis compteur | odomètre 0 → 23 |
-| 22,87 | **« ding »** de caisse | fin du compteur |
-| 24,00 | **« tchac »** tampon | SAUVÉ (temps 44) |
-| 25,64 → 26,14 | frottement feuille | essuyage final |
-| 27,30 → 27,70 | feutre | « PERD » barré puis effacé |
-| 28,30 | « pop » doux | feuille posée sur le Y de FRESCY |
+| 0,46 | « toc » plastique | il tape le rebord |
+| 1,15 | **« clac »** poubelle | le couvercle claque |
+| 1,76 → 2,22 | feutre | « sois honnête » s’écrit |
+| 2,61 → 4,49 (à-coups : 3,42 · 3,76 · 4,10 · 4,45) | imprimante thermique | ticket des pertes |
+| 2,73 · 3,07 · 3,42 · 3,76 | « tic » léger | étiquettes qui virent à l’orange |
+| 3,34 · 3,68 · 4,03 · 4,37 | « bloup » sourd | produits qui tombent du rayon |
+| 4,83 | **« ding »** de caisse | TOTAL JETÉ 11,10 € |
+| 5,63 | **« tchac »** tampon + mini-secousse | PERDU |
+| 8,12 → 8,70 | frottement feuille | essuyage vers le bleu |
+| 9,39 | « pop » doux | la feuille se plante sur le y |
+| 10,62 → 11,24 | « zoup » | l’écran bleu rentre dans le téléphone |
+| 12,08 | « bip » / « tic » | date détectée |
+| 12,92 | « pop » | la date se pose dans la fiche |
+| 13,83 → 14,40 | 6 « tic » en cascade | les cartes tombent dans la liste |
+| 14,67 → 15,12 | glissé de cartes | tri par urgence |
+| 17,61 / 17,96 | glissé + **« ding »** | notification |
+| 18,80 | « tic » | tap « Passer à -20 % » |
+| 19,30 | **« pop »** sticker | -20 % collé de travers |
+| 21,94 | « tic » | tap « C’est fait » |
+| 22,09 → 22,40 | « ding » validé | coche qui se dessine, carte verte |
+| 22,93 | glissé | la carte quitte la liste |
+| 24,54 → 25,38 | papier qui défile | ticket-rideau |
+| 25,69 → 26,83 | cliquetis compteur | odomètre 0 → 23 |
+| 26,83 | **« ding »** de caisse | fin du compteur |
+| 28,13 | **« tchac »** tampon | SAUVÉ |
+| 30,00 → 30,57 | frottement feuille | essuyage final |
+| 31,91 → 32,60 | feutre | « PERD » barré puis effacé |
+| 33,06 | « pop » doux | feuille posée sur le Y de FRESCY |
 
-Musique conseillée : groove funky / lo-fi à ~110 BPM (basse ronde, guitare muted, batterie sèche), pas d'EDM épique.
+Musique conseillée : groove funky / lo-fi à **96 BPM** (basse ronde, guitare muted, batterie sèche), pas d'EDM épique.
 Démarrer la musique pile à 0,00 s ; la vidéo boucle proprement (fond papier → fond papier).

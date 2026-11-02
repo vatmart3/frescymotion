@@ -6,7 +6,9 @@
  * ╚══════════════════════════════════════════════════════════════╝
  *
  * Timings : les scènes sont calées en TEMPS (beats) sur le tempo `bpm`.
- *   1 temps = 60 / bpm secondes (110 BPM → 0,545 s).
+ *   1 temps = 60 / bpm secondes (96 BPM → 0,625 s).
+ * Les animations ont été dessinées à 110 BPM : baisser `bpm` ralentit TOUT
+ * (animations comprises) en gardant chaque coupe sur un temps.
  * Les micro-animations à l'intérieur des scènes sont exprimées en "ticks"
  * de 1/30 s, quel que soit le fps choisi (30 ou 60 fonctionnent).
  */
@@ -33,7 +35,9 @@ export type Product = {
 export const CONFIG = {
   // ───────────────────────── Technique
   fps: 30,
-  bpm: 110,
+  bpm: 96,
+  /** tempo de référence des animations (ne pas modifier) */
+  designBpm: 110,
 
   // ───────────────────────── Couleurs (charte stricte)
   colors: {
@@ -56,7 +60,7 @@ export const CONFIG = {
   },
 
   // ───────────────────────── Grain papier (0.02 – 0.03 conseillé)
-  grain: 0.03,
+  grain: 0.022,
 
   // ───────────────────────── Marque
   brand: {
@@ -120,14 +124,14 @@ export const CONFIG = {
     beats: {
       hook: 0,
       problem: 4,
-      twist: 12,
-      scan: 16,
-      sort: 21,
-      alert: 27,
-      done: 33,
-      result: 39,
-      signature: 47,
-      end: 55, // 55 temps × 0,545 s = 30,0 s
+      twist: 13,
+      scan: 17,
+      sort: 22,
+      alert: 28,
+      done: 34,
+      result: 40,
+      signature: 48,
+      end: 56, // 56 temps × 0,625 s = 35,0 s
     },
     texts: {
       hook: {
@@ -177,3 +181,9 @@ export const productById = (id: string): Product => {
 /** Frame (au fps courant) d'un temps donné */
 export const beatToFrame = (beat: number, fps: number = CONFIG.fps) => Math.round(((beat * 60) / CONFIG.bpm) * fps);
 export const beatToSec = (beat: number) => (beat * 60) / CONFIG.bpm;
+/** facteur de ralenti des animations (1 = tempo de référence) */
+export const PACE = CONFIG.designBpm / CONFIG.bpm;
+/** frames (au fps courant) → ticks d'animation */
+export const framesToTicks = (frames: number, fps: number) => ((frames * 30) / fps) / PACE;
+/** ticks d'animation → frames (au fps courant) */
+export const ticksToFrames = (ticks: number, fps: number) => Math.round(((ticks * fps) / 30) * PACE);

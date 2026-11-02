@@ -74,7 +74,7 @@ export const Problem: React.FC = () => {
           {[1, 2, 3].map((i) => (
             <div key={i} style={{position: 'absolute', left: i * 225, top: 70, bottom: 110, width: 4, background: 'rgba(29,63,191,0.18)'}} />
           ))}
-          <div style={{position: 'absolute', left: -5, right: -5, top: -5, height: 70, borderRadius: '18px 18px 0 0', background: C.blueDeep, display: 'flex', alignItems: 'center', paddingLeft: 30, gap: 16}}>
+          <div style={{position: 'absolute', left: -5, right: -5, top: -5, height: 70, borderRadius: '18px 18px 0 0', background: C.blue, display: 'flex', alignItems: 'center', paddingLeft: 30, gap: 16}}>
             <span style={{...inter(30, 800, C.white), letterSpacing: '0.18em'}}>RAYON FRAIS</span>
             <span style={inter(24, 600, 'rgba(255,255,255,0.7)')}>· 4 °C</span>
           </div>
