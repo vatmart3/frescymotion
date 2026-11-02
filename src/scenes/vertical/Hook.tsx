@@ -39,14 +39,15 @@ export const Hook: React.FC = () => {
     r = -130 - p * 70;
   }
   // couvercle : ouvert, puis claque (léger rebond)
-  const slam = sp(t, IN + 1, {stiffness: 700, damping: 14});
-  const lid = t < IN + 1 ? 1 : 1 - slam;
+  const SLAM = IN + 5; // le couvercle claque une fois le pot dedans (temps 2)
+  const slam = sp(t, SLAM, {stiffness: 700, damping: 14});
+  const lid = t < SLAM ? 1 : 1 - slam;
   // la poubelle encaisse
-  const gulp = sp(t, IN + 4, {stiffness: 500, damping: 12});
-  const squash = t > IN + 4 ? 1 + Math.sin(gulp * Math.PI) * 0.05 : 1;
+  const gulp = sp(t, SLAM + 2, {stiffness: 500, damping: 12});
+  const squash = t > SLAM + 2 ? 1 + Math.sin(gulp * Math.PI) * 0.05 : 1;
   const hitKick = tws(t, [HIT, HIT + 2, HIT + 6], [0, 6, 0]);
 
-  const noteAt = 46;
+  const noteAt = 40;
   const noteEnd = noteAt + handDuration([TX.note], 0.9);
 
   return (
@@ -64,18 +65,18 @@ export const Hook: React.FC = () => {
 
       {/* plan texte */}
       <AbsoluteFill>
-        <div style={{position: 'absolute', left: 60, top: 360, transform: 'rotate(-5deg)', transformOrigin: '0 0'}}>
+        <div style={{position: 'absolute', left: 56, top: 360, transform: 'rotate(-5deg)', transformOrigin: '0 0'}}>
           <KineticLines
             lines={TX.lines}
             at={[3, 9, 15, 33, 39]}
-            size={205}
+            size={196}
             lineHeight={0.97}
             styles={{'SEMAINE ?': {box: C.blue, boxText: C.white}}}
           />
         </div>
         <div style={{position: 'absolute', left: 74, top: 1236}}>
           <HandText lines={[TX.note]} at={noteAt} size={84} rotate={-6} />
-          <EyesDoodle at={noteEnd - 2} size={104} style={{position: 'absolute', left: 448, top: -42}} />
+          <EyesDoodle at={noteEnd - 2} size={96} style={{position: 'absolute', left: 392, top: -104}} />
         </div>
         <HandPath
           at={noteEnd + 1}

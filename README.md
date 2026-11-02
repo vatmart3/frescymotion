@@ -67,8 +67,8 @@ Coupes de scène (toutes sur un temps) :
 |---|---|---|
 | 0,00 | sifflement court | le yaourt tombe |
 | 0,46 | « toc » plastique | il tape le rebord |
-| 1,15 | **« clac »** poubelle | le couvercle claque |
-| 1,76 → 2,22 | feutre | « sois honnête » s’écrit |
+| 1,26 | **« clac »** poubelle | le couvercle claque |
+| 1,53 → 2,02 | feutre | « sois honnête » s’écrit |
 | 2,61 → 4,49 (à-coups : 3,42 · 3,76 · 4,10 · 4,45) | imprimante thermique | ticket des pertes |
 | 2,73 · 3,07 · 3,42 · 3,76 | « tic » léger | étiquettes qui virent à l’orange |
 | 3,34 · 3,68 · 4,03 · 4,37 | « bloup » sourd | produits qui tombent du rayon |
@@ -84,9 +84,9 @@ Coupes de scène (toutes sur un temps) :
 | 17,61 / 17,96 | glissé + **« ding »** | notification |
 | 18,80 | « tic » | tap « Passer à -20 % » |
 | 19,30 | **« pop »** sticker | -20 % collé de travers |
-| 21,94 | « tic » | tap « C’est fait » |
-| 22,09 → 22,40 | « ding » validé | coche qui se dessine, carte verte |
-| 22,93 | glissé | la carte quitte la liste |
+| 21,78 | « tic » | tap « C’est fait » |
+| 21,94 → 22,24 | « ding » validé | coche qui se dessine, carte verte |
+| 23,77 | glissé | la carte quitte la liste |
 | 24,54 → 25,38 | papier qui défile | ticket-rideau |
 | 25,69 → 26,83 | cliquetis compteur | odomètre 0 → 23 |
 | 26,83 | **« ding »** de caisse | fin du compteur |

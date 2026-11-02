@@ -229,13 +229,13 @@ const ListScreen: React.FC<{t: number; ph: ReturnType<typeof usePhases>}> = ({t,
 
   // validation
   const expand = td > 0 ? sp(td, 2, SPRING_UI) : 0;
-  const extraH = expand * 156 * (1 - tw(td, [46, 56], [0, 1], EASE_IN));
-  const press = tws(td, [15, 18, 22], [0, 1, 0]);
-  const checkP = tw(td, [22, 30], [0, 1], EASE_OUT);
-  const doneP = tw(td, [26, 30], [0, 1], EASE_OUT);
-  const outX = tw(td, [44, 54], [0, 1], EASE_IN);
-  const collapse = sp(td, 50, SPRING_PHYS);
-  const removed = td >= 54;
+  const extraH = expand * 156 * (1 - tw(td, [68, 78], [0, 1], EASE_IN));
+  const press = tws(td, [11, 14, 18], [0, 1, 0]);
+  const checkP = tw(td, [18, 26], [0, 1], EASE_OUT);
+  const doneP = tw(td, [22, 26], [0, 1], EASE_OUT);
+  const outX = tw(td, [66, 76], [0, 1], EASE_IN);
+  const collapse = sp(td, 72, SPRING_PHYS);
+  const removed = td >= 76;
   const remaining = removed ? sorted.filter((p) => p.id !== alertId) : sorted;
 
   const cards = UNSORTED.map((id, k) => {
@@ -245,7 +245,7 @@ const ListScreen: React.FC<{t: number; ph: ReturnType<typeof usePhases>}> = ({t,
     const move = sp(ts, 24 + rank * 2, SPRING_PHYS);
     let y = LIST_TOP + (k + (rank - k) * move) * STEP;
     // après la validation : décalage sous la carte dépliée, puis remontée
-    if (rank > alertIdx) y += extraH - (td >= 50 ? STEP * collapse : 0);
+    if (rank > alertIdx) y += extraH - (td >= 72 ? STEP * collapse : 0);
     const lift = Math.sin(Math.min(1, move) * Math.PI) * (rank === k ? 0 : 1);
     const isAlert = id === alertId;
     const ring = isAlert ? tws(ta, [8, 12, 60, 70], [0, 1, 1, 0]) : 0;
@@ -297,7 +297,7 @@ const ListScreen: React.FC<{t: number; ph: ReturnType<typeof usePhases>}> = ({t,
                       <AppButton width="100%" height={84} press={press} color={doneP > 0 ? C.ok : C.blue} size={32}>
                         {CONFIG.alert.done} <Check size={34} p={checkP} stroke={3.6} />
                       </AppButton>
-                      <TapRing x={(CARD_W - 52) / 2} y={42} at={ph.done + 18} />
+                      <TapRing x={(CARD_W - 52) / 2} y={42} at={ph.done + 14} />
                     </div>
                   </div>
                 ) : null
@@ -371,12 +371,13 @@ const TAPE = {left: 36, top: 1352, w: 878, h: 150};
 const Tape: React.FC<{t: number; ph: ReturnType<typeof usePhases>}> = ({t, ph}) => {
   const captions = [
     {at: 14, text: TX.scan.caption},
-    {at: ph.sort + 24, text: TX.sort.caption},
-    {at: ph.alert + 6, text: TX.alert.caption},
-    {at: ph.done + 20, text: TX.done.caption},
+    {at: ph.sort + 4, text: TX.sort.caption},
+    {at: ph.alert + 4, text: TX.alert.caption},
+    {at: ph.done + 12, text: TX.done.caption},
   ];
   const slap = sp(t, 10, SPRING_PHYS);
-  const idx = captions.reduce((acc, c, i) => (t >= c.at - 6 ? i : acc), 0);
+  // la légende courante reste affichée jusqu'à l'entrée de la suivante (sa sortie se joue juste avant)
+  const idx = captions.reduce((acc, c, i) => (t >= c.at ? i : acc), 0);
   const cur = captions[idx];
   const next = captions[idx + 1];
   const words = cur.text.split(' ');
@@ -475,7 +476,7 @@ export const Demo: React.FC = () => {
     {at: 34, lines: TX.scan.note, x: 650, y: 640, arrow: {d: 'M70 10 C 30 30, 10 70, -40 92', head: 'M-10 70 L-42 94 L-6 108', x: 640, y: 770}},
     {at: ph.sort + 46, lines: TX.sort.note, x: 652, y: 470, arrow: {d: 'M60 10 C 20 10, -10 40, -60 70', head: 'M-34 50 L-62 72 L-28 86', x: 650, y: 600}},
     {at: ph.alert + 52, lines: TX.alert.note, x: 640, y: 690, arrow: {d: 'M120 0 C 150 40, 150 70, 120 110', head: 'M150 92 L120 112 L104 80', x: 700, y: 800}},
-    {at: ph.done + 30, lines: TX.done.note, x: 634, y: 590, arrow: {d: 'M70 0 C 50 60, 10 110, -60 140', head: 'M-28 124 L-62 141 L-36 168', x: 670, y: 830}},
+    {at: ph.done + 20, until: ph.done + 66, lines: TX.done.note, x: 634, y: 600, arrow: {d: 'M70 0 C 50 60, 10 110, -60 140', head: 'M-28 124 L-62 141 L-36 168', x: 670, y: 846}},
   ];
   const phaseEnd = [ph.sort, ph.alert, ph.done, ph.end];
 
@@ -509,13 +510,13 @@ export const Demo: React.FC = () => {
 
       {/* annotations à la main */}
       {notes.map((n, i) =>
-        t >= n.at && t < phaseEnd[i] ? (
+        t >= n.at && t < ('until' in n && n.until ? n.until : phaseEnd[i]) ? (
           <React.Fragment key={i}>
             <div style={{position: 'absolute', left: n.x, top: n.y}}>
-              <HandText lines={n.lines} at={n.at} size={74} rotate={-5} />
+              <HandText lines={n.lines} at={n.at} size={74} rotate={-5} speed={0.75} />
             </div>
             <HandPath
-              at={n.at + handDuration(n.lines)}
+              at={n.at + handDuration(n.lines, 0.75)}
               dur={6}
               viewBox="-100 -20 300 220"
               w={300}

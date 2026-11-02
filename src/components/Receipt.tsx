@@ -99,7 +99,7 @@ export const Receipt: React.FC<{
                   <div key={i} style={{...common, gap: 10}}>
                     <span style={{...inter(size, r.bold ? 800 : 600), whiteSpace: 'nowrap'}}>{r.label}</span>
                     <span style={{flex: 1, borderBottom: `3px dotted ${C.ink}`, opacity: 0.45, transform: `translateY(${size * 0.32}px)`}} />
-                    <span style={{...inter(size, r.bold ? 800 : 700), whiteSpace: 'nowrap'}}>{r.value}</span>
+                    <span style={{...inter(size, r.bold ? 800 : 700), whiteSpace: 'nowrap', fontFeatureSettings: '"tnum" 1'}}>{r.value}</span>
                   </div>
                 );
               })}

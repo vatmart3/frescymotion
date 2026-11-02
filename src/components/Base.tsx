@@ -79,7 +79,7 @@ export const inter = (size: number, weight: 500 | 600 | 700 | 800 = 600, color: 
   fontWeight: weight,
   color,
   letterSpacing: '-0.01em',
-  fontFeatureSettings: '"tnum" 1, "cv11" 1',
+  fontFeatureSettings: '"cv11" 1',
 });
 
 export const caveat = (size: number, color: string = C.blue): React.CSSProperties => ({

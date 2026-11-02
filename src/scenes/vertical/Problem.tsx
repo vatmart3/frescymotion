@@ -89,7 +89,7 @@ export const Problem: React.FC = () => {
               tws(t, [PROBLEM_T.red(i), PROBLEM_T.red(i) + 2, PROBLEM_T.red(i) + 5], [0, 1, 0]),
             );
             const color = state === 'urgent' ? C.urgent : state === 'soon' ? C.soon : C.ok;
-            const lab = state === 'urgent' ? (p.daysLeft <= 0 ? 'AUJOURD’HUI' : 'DEMAIN') : state === 'soon' ? 'BIENTÔT' : p.dateType;
+            const lab = state === 'urgent' ? 'PÉRIMÉ' : state === 'soon' ? 'BIENTÔT' : p.dateType;
             return (
               <React.Fragment key={p.id}>
                 {fallP >= 1 ? null : <div

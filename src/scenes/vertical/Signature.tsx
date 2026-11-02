@@ -45,14 +45,14 @@ export const Signature: React.FC = () => {
   const SIZE_B = 238;
   const cta = (i: number) => tw(t, [SIGN_T.cta + i * 4, SIGN_T.cta + i * 4 + 9], [0, 1], EASE_OUT);
   const mask = (i: number, node: React.ReactNode, extra?: React.CSSProperties) => (
-    <div style={{overflow: 'hidden', paddingTop: 8, ...extra}}>
-      <div style={{transform: `translateY(${(1 - cta(i)) * 110}%)`}}>{node}</div>
+    <div style={{overflow: 'hidden', paddingTop: 8, paddingBottom: 14, marginBottom: -14, ...extra}}>
+      <div style={{transform: `translateY(${(1 - cta(i)) * 150}%)`, visibility: cta(i) > 0 ? 'visible' : 'hidden'}}>{node}</div>
     </div>
   );
   return (
     <Paper>
       <AbsoluteFill>
-        <div style={{position: 'absolute', left: 64, top: 360}}>
+        <div style={{position: 'absolute', left: 64, top: 430}}>
           <KineticLines
             lines={[TX.lineA]}
             at={SIGN_T.a}
@@ -104,11 +104,11 @@ export const Signature: React.FC = () => {
           />
         </div>
 
-        <div style={{position: 'absolute', left: 690, top: 900}}>
+        <div style={{position: 'absolute', left: 690, top: 970}}>
           <HandText lines={[TX.note]} at={SIGN_T.note} size={86} rotate={-8} />
         </div>
 
-        <div style={{position: 'absolute', left: 68, top: 1086}}>
+        <div style={{position: 'absolute', left: 68, top: 1156}}>
           {mask(0, <div style={inter(50, 600)}>{TX.cta}</div>)}
           {mask(
             1,

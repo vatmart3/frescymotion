@@ -119,7 +119,7 @@ export const Bin: React.FC<{size: number; lid: number; children?: React.ReactNod
       <path key={x} d={`M${x} 92 L${x - (x - 100) * 0.08} 220`} stroke={C.blue} strokeWidth={8} strokeLinecap="round" />
     ))}
     <rect x={64} y={236} width={34} height={12} rx={5} fill={C.blueDeep} {...S} />
-    <g transform={`rotate(${-lid * 72} 176 66)`}>
+    <g transform={`rotate(${lid * 98} 176 66)`}>
       <rect x={20} y={50} width={160} height={22} rx={10} fill={C.blue} {...S} />
       <rect x={82} y={40} width={36} height={12} rx={5} fill={C.ink} {...S} />
     </g>

@@ -20,11 +20,12 @@ export const useSavedRows = (scale = 1): ReceiptRow[] => {
   return [
     {
       kind: 'header',
-      h: 150 * scale,
+      h: 184 * scale,
       node: (
-        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14 * scale}}>
+        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12 * scale}}>
           <Logo size={62 * scale} color={C.ink} />
           <div style={{...inter(24 * scale, 800), letterSpacing: '0.08em'}}>{R.header}</div>
+          <div style={{...inter(20 * scale, 600, 'rgba(14,26,58,0.55)'), letterSpacing: '0.04em', marginTop: -4 * scale}}>{R.disclaimer}</div>
         </div>
       ),
     },
@@ -50,7 +51,7 @@ export const useSavedRows = (scale = 1): ReceiptRow[] => {
     {kind: 'sep', h: 34 * scale},
     {
       kind: 'node',
-      h: 116 * scale,
+      h: 84 * scale,
       node: (
         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 * scale}}>
           <div style={{display: 'flex', gap: 3 * scale, height: 52 * scale}}>
@@ -58,7 +59,6 @@ export const useSavedRows = (scale = 1): ReceiptRow[] => {
               <span key={i} style={{width: ((i * 11) % 5 === 0 ? 6 : (i * 3) % 4 === 0 ? 4 : 2) * scale, background: C.ink, height: '100%'}} />
             ))}
           </div>
-          <div style={{...inter(20 * scale, 600, 'rgba(14,26,58,0.55)'), letterSpacing: '0.04em'}}>{R.disclaimer}</div>
         </div>
       ),
     },
@@ -79,9 +79,9 @@ export const Result: React.FC = () => {
   return (
     <Paper>
       <AbsoluteFill style={{transform: `translate(${sh.x}px, ${sh.y}px) rotate(${sh.r}deg)`}}>
-        <Receipt width={760} rows={rows} printAt={SAVED_PRINT_AT} slotX={500} slotY={1452} rotate={-1.5} padding={48} />
-        <Stamp id="sauve" text="SAUVÉ" color={C.blue} at={RESULT_T.stamp} rotate={-8} width={500} height={250} fontSize={150} style={{left: 160, top: 1236}} />
-        <div style={{position: 'absolute', left: 92, top: 430}}>
+        <Receipt width={760} rows={rows} printAt={SAVED_PRINT_AT} slotX={500} slotY={1310} rotate={-1.5} padding={48} />
+        <Stamp id="sauve" text="SAUVÉ" color={C.blue} at={RESULT_T.stamp} rotate={-8} width={500} height={250} fontSize={150} style={{left: 300, top: 1190}} />
+        <div style={{position: 'absolute', left: 92, top: 330}}>
           <HandText lines={note} at={RESULT_T.note} size={80} rotate={-6} />
         </div>
         <HandPath
@@ -90,7 +90,7 @@ export const Result: React.FC = () => {
           viewBox="0 0 300 300"
           w={300}
           h={300}
-          style={{left: 470, top: 520}}
+          style={{left: 470, top: 410}}
           d="M20 20 C 120 30, 170 90, 150 200"
           arrowHead="M118 172 L150 204 L176 166"
         />

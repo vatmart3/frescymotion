@@ -80,7 +80,8 @@ export const HandPath: React.FC<{
   const p = tw(t, [at, at + dur], [0, 1], EASE_IN_OUT);
   const r = retractAt !== undefined ? tw(t, [retractAt, retractAt + retractDur], [0, 1], EASE_OUT) : 0;
   const headP = arrowHead ? tw(t, [at + dur - 1, at + dur + 3], [0, 1], EASE_OUT) : 0;
-  if (t < at) return null;
+  // trait vide (pas encore dessiné / entièrement effacé) : rien, sinon le bout arrondi laisse un point
+  if (t < at || p - r <= 0.002 || (r > 0 && p - r < 0.06)) return null;
   return (
     <svg width={w} height={h} viewBox={viewBox} style={{position: 'absolute', overflow: 'visible', filter, ...style}}>
       <path
