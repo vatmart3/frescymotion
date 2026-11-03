@@ -4,7 +4,8 @@ Deux compositions :
 
 | ID | Format | Durée | État |
 |---|---|---|---|
-| `Frescy-Vertical` | 1080×1920 (9:16), 30 i/s | 35,0 s (56 temps à 96 BPM) | ✅ prête à valider |
+| `Frescy-Vertical` | 1080×1920 (9:16), 30 i/s | 35,0 s (56 temps à 96 BPM) | ✅ version A « tactile » |
+| `Frescy-Vertical-B` | 1080×1920 (9:16), **60 i/s** | 35,0 s (même découpage) | ✅ version B « net » |
 | `Frescy-Horizontal` | 1920×1080 (16:9), 30 i/s | 40 s | ⏳ après validation de la 9:16 |
 
 ## Démarrer
@@ -16,13 +17,27 @@ npm run studio          # Remotion Studio → http://localhost:3000
 
 Dans le Studio, coche la prop `showSafeZones` pour afficher les zones TikTok/Reels (haut 220 px, bas 400 px, droite 140 px).
 
+## Les deux styles
+
+- **A · tactile** : papier, grain 2 %, traits Caveat qui tremblent, tampons mouchetés, objets posés de biais, téléphone incliné en 3D, légendes sur bande adhésive.
+- **B · net** : style suisse/éditorial. Zéro grain, zéro tremblé, tout d'équerre sur une grille (marge gauche 80 px), intertitres numérotés « 01 — LE CONSTAT … 06 — RÉSULTAT », téléphone de face plus grand (UI +8 %), légendes Anton en haut, annotations en pastilles bleues reliées par un filet. Rendu en 60 i/s.
+
+Les deux partagent la même histoire, les mêmes timings et le même `src/config.ts` (les textes propres à B sont dans `CONFIG.net`).
+Le style est piloté par `src/lib/style.tsx` (`look: 'tactile' | 'net'`).
+
 ## Exporter
 
 ```bash
 npx remotion render Frescy-Vertical out/frescy-vertical-9x16.mp4 --codec=h264 --crf=16
 ```
 
-(= `npm run render:vertical`). En 60 i/s : passer `fps: 60` dans `src/config.ts`, tous les timings suivent.
+(= `npm run render:vertical`).
+
+```bash
+npx remotion render Frescy-Vertical-B out/frescy-vertical-B-net-9x16-60fps.mp4 --codec=h264 --crf=12 --image-format=png --x264-preset=slow
+```
+
+(= `npm run render:vertical-b`, qualité maximale : images PNG sans perte, CRF 12). En 60 i/s : passer `fps: 60` dans `src/config.ts`, tous les timings suivent.
 
 ## Tout changer en 10 secondes : `src/config.ts`
 

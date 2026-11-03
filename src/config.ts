@@ -114,6 +114,24 @@ export const CONFIG = {
     disclaimer: 'exemple d’écran de l’appli',
   },
 
+  // ───────────────────────── VERSION B « net » : intertitres et pastilles d'annotation
+  net: {
+    sections: {
+      problem: '01 — LE CONSTAT',
+      scan: '02 — SCAN',
+      sort: '03 — TRI',
+      alert: '04 — ALERTE',
+      done: '05 — VALIDATION',
+      result: '06 — RÉSULTAT',
+    },
+    callouts: {
+      scan: '1 photo,\nc’est tout',
+      sort: 'L’urgent\nen haut',
+      alert: 'Prévenu\nà J-2',
+      done: '1 tap.\nZéro\nformation.',
+    },
+  },
+
   // ───────────────────────── VERSION VERTICALE 9:16
   vertical: {
     width: 1080,

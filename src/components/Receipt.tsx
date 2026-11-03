@@ -2,6 +2,7 @@ import React from 'react';
 import {C} from '../config';
 import {EASE_OUT, noise, tw, useT} from '../lib/motion';
 import {inter} from './Base';
+import {useIsNet} from '../lib/style';
 
 export type ReceiptRow =
   | {kind: 'header'; node: React.ReactNode; h: number}
@@ -49,6 +50,7 @@ export const Receipt: React.FC<{
   padding?: number;
 }> = ({width, rows, printAt, slotX, slotY, rotate = 0, showSlot = true, padding = 40}) => {
   const t = useT();
+  const net = useIsNet();
   // hauteur imprimée
   let h = 14; // bord dentelé du haut
   let printing = false;
@@ -58,7 +60,7 @@ export const Receipt: React.FC<{
     h += r.h * p;
   });
   h += 18; // marge basse sous la dernière ligne
-  const vib = printing ? (noise(Math.floor(t)) - 0.5) * 2 : 0;
+  const vib = printing && !net ? (noise(Math.floor(t)) - 0.5) * 2 : 0;
   const started = t >= printAt[0];
 
   return (

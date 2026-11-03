@@ -2,6 +2,7 @@ import React from 'react';
 import {C} from '../config';
 import {EASE_IN, EASE_OUT, tw, useT} from '../lib/motion';
 import {anton} from './Base';
+import {useIsNet} from '../lib/style';
 
 export type WordStyle = {color?: string; box?: string; boxText?: string};
 
@@ -44,6 +45,7 @@ export const KineticLines: React.FC<{
   style,
 }) => {
   const t = useT();
+  const net = useIsNet();
   let k = -1;
   return (
     <div style={{display: 'flex', flexDirection: 'column', alignItems: align === 'left' ? 'flex-start' : align === 'right' ? 'flex-end' : 'center', ...style}}>
@@ -54,8 +56,8 @@ export const KineticLines: React.FC<{
             const start = Array.isArray(at) ? at[k] ?? at[at.length - 1] + stagger * (k - at.length + 1) : at + k * stagger;
             const p = tw(t, [start, start + dur], [0, 1], EASE_OUT);
             const out = exitAt !== undefined ? tw(t, [exitAt + k * 1.2, exitAt + k * 1.2 + 6], [0, 1], EASE_IN) : 0;
-            const y = (1 - p) * 135 - out * 150;
-            const rot = (1 - p) * 4;
+            const y = (1 - p) * 160 - out * 170;
+            const rot = net ? 0 : (1 - p) * 4;
             const ws = styles[w] ?? {};
             const visible = t >= start;
             return (
@@ -70,8 +72,8 @@ export const KineticLines: React.FC<{
                   marginTop: -size * 0.34,
                   paddingRight: size * 0.04,
                   marginRight: -size * 0.04,
-                  paddingBottom: size * 0.1,
-                  marginBottom: -size * 0.1,
+                  paddingBottom: size * 0.06,
+                  marginBottom: -size * 0.06,
                   lineHeight: lineHeight,
                   visibility: visible ? 'visible' : 'hidden',
                 }}

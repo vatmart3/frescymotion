@@ -9,6 +9,7 @@ import {HandPath, HandText, handDuration} from '../../components/Hand';
 import {AppIcon, ArrowRight, Check, Clock} from '../../components/Icons';
 import {EASE_IN, EASE_OUT, SPRING_BOUNCY, SPRING_PHYS, SPRING_UI, sp, tw, tws, useT} from '../../lib/motion';
 import {LogoBlock, TWIST_LOGO_SIZE} from './Twist';
+import {useIsNet} from '../../lib/style';
 
 const TX = CONFIG.vertical.texts;
 const B = CONFIG.vertical.beats;
@@ -24,7 +25,7 @@ const CARD_W = SCREEN.w - 44;
 /** Conversion écran → cadre (approx. sans l'inclinaison) */
 const toFrame = (sx: number, sy: number, px = PX, py = PY) => [px - SCREEN.w / 2 + sx, py - SCREEN.h / 2 + sy];
 
-const usePhases = () => {
+export const usePhases = () => {
   const {fps} = useVideoConfig();
   const base = beatToFrame(B.scan, fps);
   const k = (b: number) => framesToTicks(beatToFrame(b, fps) - base, fps);
@@ -32,11 +33,12 @@ const usePhases = () => {
 };
 
 // ════════════════════════════════════════════ ÉCRAN 1 : SCAN
-const ScanScreen: React.FC<{t: number}> = ({t}) => {
+export const ScanScreen: React.FC<{t: number}> = ({t}) => {
   const jambon = productById('jambon');
-  // caméra tenue à la main
-  const hx = Math.sin(t * 0.21) * 5 + Math.sin(t * 0.53) * 2;
-  const hy = Math.cos(t * 0.17) * 4;
+  const net = useIsNet();
+  // caméra tenue à la main (style tactile uniquement)
+  const hx = net ? 0 : Math.sin(t * 0.21) * 5 + Math.sin(t * 0.53) * 2;
+  const hy = net ? 0 : Math.cos(t * 0.17) * 4;
   // cadre de détection : plein écran → zone de la date
   const lockP = sp(t, 18, SPRING_UI);
   const from = {x: 36, y: 190, w: SCREEN.w - 72, h: 780};
@@ -219,7 +221,7 @@ const ScanScreen: React.FC<{t: number}> = ({t}) => {
 // ════════════════════════════════════════════ ÉCRAN 2 : LISTE (tri, alerte, validation)
 const UNSORTED = ['yaourt', 'creme', 'comte', 'jambon', 'salade', 'merguez'];
 
-const ListScreen: React.FC<{t: number; ph: ReturnType<typeof usePhases>}> = ({t, ph}) => {
+export const ListScreen: React.FC<{t: number; ph: ReturnType<typeof usePhases>}> = ({t, ph}) => {
   const sorted = CONFIG.products.slice().sort((a, b) => a.daysLeft - b.daysLeft);
   const ts = t - ph.sort;
   const ta = t - ph.alert;
@@ -311,7 +313,7 @@ const ListScreen: React.FC<{t: number; ph: ReturnType<typeof usePhases>}> = ({t,
 };
 
 // ════════════════════════════════════════════ NOTIFICATION
-const Notification: React.FC<{ta: number; base: number}> = ({ta, base}) => {
+export const Notification: React.FC<{ta: number; base: number}> = ({ta, base}) => {
   const inP = sp(ta, 3, SPRING_UI);
   const out = tw(ta, [86, 94], [0, 1], EASE_IN);
   const ding = ta > 12 && ta < 22 ? Math.sin((ta - 12) * 2.2) * (1 - (ta - 12) / 10) * 2.2 : 0;
@@ -344,7 +346,7 @@ const Notification: React.FC<{ta: number; base: number}> = ({ta, base}) => {
       </div>
       <div style={{display: 'flex', alignItems: 'flex-start', gap: 10, marginTop: 10}}>
         <ArrowRight size={30} color={C.blue} style={{marginTop: 2}} />
-        <span style={{...inter(27, 600, 'rgba(14,26,58,0.85)'), lineHeight: 1.25}}>{CONFIG.alert.body}</span>
+        <span style={{...inter(27, 600, 'rgba(14,26,58,0.85)'), lineHeight: 1.25, textWrap: 'balance'} as React.CSSProperties}>{CONFIG.alert.body}</span>
       </div>
       <div style={{height: open * 108, overflow: 'hidden'}}>
         <div style={{display: 'flex', gap: 14, paddingTop: 22}}>
@@ -483,7 +485,7 @@ export const Demo: React.FC = () => {
   return (
     <Paper>
       {/* plan objets : téléphone */}
-      <Phone x={cxp} y={cyp} scale={scale} rotX={rot.x} rotY={rot.y} rotZ={rot.z}>
+      <Phone x={cxp} y={cyp} scale={scale} rotX={rot.x} rotY={rot.y} rotZ={rot.z} bezelOpacity={t < 2 ? 0 : 1}>
         {t < 16 ? (
           <AbsoluteFill style={{background: C.blue, alignItems: 'center', justifyContent: 'center'}}>
             <LogoBlock size={TWIST_LOGO_SIZE / INTRO_SCALE} />

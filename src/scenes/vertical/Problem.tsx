@@ -7,6 +7,7 @@ import {KineticLines} from '../../components/Kinetic';
 import {Receipt, ReceiptRow} from '../../components/Receipt';
 import {Stamp} from '../../components/Stamp';
 import {EASE_IN, shake, tw, tws, useT} from '../../lib/motion';
+import {useIsNet, useTilt} from '../../lib/style';
 
 const TX = CONFIG.vertical.texts.problem;
 
@@ -60,6 +61,8 @@ export const useWasteRows = (size = 31): {rows: ReceiptRow[]; printAt: number[]}
  */
 export const Problem: React.FC = () => {
   const t = useT();
+  const tilt = useTilt();
+  const net = useIsNet();
   const items = CONFIG.wasteTicket.items.map(productById);
   const {rows, printAt} = useWasteRows();
   const sh = shake(t, PROBLEM_T.stamp, 16);
@@ -103,7 +106,7 @@ export const Problem: React.FC = () => {
                 >
                   <ProductArt art={p.art} size={218} />
                 </div>}
-                <div style={{position: 'absolute', left: 18 + i * 225, top: 356, transform: `scaleY(${1 - flip * 0.25}) rotate(${(i % 2 ? 1.5 : -1.2)}deg)`}}>
+                <div style={{position: 'absolute', left: 18 + i * 225, top: 356, transform: `scaleY(${1 - flip * 0.25}) rotate(${tilt(i % 2 ? 1.5 : -1.2)}deg)`}}>
                   <ShelfTag date={p.date} color={color} width={190} type={p.dateType} urgentLabel={lab} />
                 </div>
               </React.Fragment>
@@ -118,9 +121,9 @@ export const Problem: React.FC = () => {
         </div>
 
         {/* ── TICKET DES PERTES */}
-        <Receipt width={610} rows={rows} printAt={printAt} slotX={618} slotY={1456} rotate={2} />
+        <Receipt width={610} rows={rows} printAt={printAt} slotX={618} slotY={1456} rotate={tilt(2)} />
 
-        <Stamp id="perdu" text="PERDU" color={C.urgent} at={PROBLEM_T.stamp} rotate={-14} width={580} height={236} fontSize={190} style={{left: 330, top: 1060}} />
+        <Stamp id="perdu" text="PERDU" color={C.urgent} at={PROBLEM_T.stamp} rotate={net ? -7 : -14} width={580} height={236} fontSize={190} style={{left: 330, top: 1060}} />
       </AbsoluteFill>
     </Paper>
   );

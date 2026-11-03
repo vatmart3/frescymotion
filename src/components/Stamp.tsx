@@ -1,6 +1,7 @@
 import React from 'react';
 import {CONFIG} from '../config';
 import {EASE_IN, sp, tw, useT} from '../lib/motion';
+import {useIsNet} from '../lib/style';
 
 /**
  * Tampon encreur qui s'écrase : descend vite (ease-in), écrase (squash),
@@ -18,6 +19,7 @@ export const Stamp: React.FC<{
   style?: React.CSSProperties;
 }> = ({id, text, color, at, rotate = -12, width = 620, height = 250, fontSize = 190, style}) => {
   const t = useT();
+  const net = useIsNet();
   if (t < at - 4) return null;
   // chute : 4 ticks avant l'impact
   const fall = tw(t, [at - 4, at], [0, 1], EASE_IN);
@@ -25,7 +27,7 @@ export const Stamp: React.FC<{
   const scale = t < at ? 2.4 - 1.4 * fall : 1 + (1 - settle) * -0.06;
   const opacity = t < at ? 0.12 + fall * 0.3 : 1;
   // encre : plus chargée pile à l'impact
-  const inkBleed = tw(t, [at, at + 5], [1.6, 0], (x) => x);
+  const inkBleed = net ? 0 : tw(t, [at, at + 5], [1.6, 0], (x) => x);
   const m = `stamp-mask-${id}`;
   const f = `stamp-speckle-${id}`;
   const pad = 26;
@@ -51,7 +53,7 @@ export const Stamp: React.FC<{
             <rect x={0} y={0} width={width} height={height} filter={`url(#${f})`} />
           </mask>
         </defs>
-        <g mask={`url(#${m})`}>
+        <g mask={net ? undefined : `url(#${m})`}>
           <rect
             x={pad / 2}
             y={pad / 2}

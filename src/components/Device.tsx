@@ -1,5 +1,6 @@
 import React from 'react';
 import {C} from '../config';
+import {useIsNet} from '../lib/style';
 import {EASE_OUT, SPRING_BOUNCY, sp, tw, useT} from '../lib/motion';
 import {anton, inter} from './Base';
 
@@ -20,6 +21,7 @@ export const Phone: React.FC<{
   children: React.ReactNode;
   bezelOpacity?: number;
 }> = ({x, y, scale = 1, rotX = 0, rotY = 0, rotZ = 0, children, bezelOpacity = 1}) => {
+  const net = useIsNet();
   const clamp = (v: number) => Math.max(-12, Math.min(12, v));
   return (
     <div
@@ -37,10 +39,10 @@ export const Phone: React.FC<{
         style={{
           position: 'absolute',
           inset: 0,
-          transform: `translate(${28 + rotY * 3}px, ${46}px) scale(${scale * 0.97}) rotate(${rotZ}deg)`,
+          transform: net ? `translate(0px, ${30 * scale}px) scale(${scale * 0.96})` : `translate(${28 + rotY * 3}px, ${46}px) scale(${scale * 0.97}) rotate(${rotZ}deg)`,
           borderRadius: PHONE.radius,
-          background: 'rgba(20,45,140,0.18)',
-          filter: 'blur(40px)',
+          background: net ? 'rgba(20,45,140,0.16)' : 'rgba(20,45,140,0.18)',
+          filter: net ? 'blur(26px)' : 'blur(40px)',
           opacity: bezelOpacity,
         }}
       />

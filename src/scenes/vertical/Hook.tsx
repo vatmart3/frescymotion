@@ -6,6 +6,7 @@ import {Paper} from '../../components/Base';
 import {EyesDoodle, HandPath, HandText, handDuration} from '../../components/Hand';
 import {KineticLines} from '../../components/Kinetic';
 import {EASE_IN, EASE_OUT, sp, tw, tws, useT} from '../../lib/motion';
+import {useTilt} from '../../lib/style';
 
 const TX = CONFIG.vertical.texts.hook;
 
@@ -15,6 +16,7 @@ const TX = CONFIG.vertical.texts.hook;
  */
 export const Hook: React.FC = () => {
   const t = useT();
+  const tilt = useTilt();
 
   // ── trajectoire du pot (coordonnées de la poubelle, boîte 200×260)
   const HIT = 12; // tape le rebord
@@ -65,7 +67,7 @@ export const Hook: React.FC = () => {
 
       {/* plan texte */}
       <AbsoluteFill>
-        <div style={{position: 'absolute', left: 56, top: 360, transform: 'rotate(-5deg)', transformOrigin: '0 0'}}>
+        <div style={{position: 'absolute', left: 56, top: 360, transform: `rotate(${tilt(-5)}deg)`, transformOrigin: '0 0'}}>
           <KineticLines
             lines={TX.lines}
             at={[3, 9, 15, 33, 39]}
@@ -75,7 +77,7 @@ export const Hook: React.FC = () => {
           />
         </div>
         <div style={{position: 'absolute', left: 74, top: 1236}}>
-          <HandText lines={[TX.note]} at={noteAt} size={84} rotate={-6} />
+          <HandText lines={[TX.note]} at={noteAt} size={84} rotate={tilt(-6)} />
           <EyesDoodle at={noteEnd - 2} size={96} style={{position: 'absolute', left: 392, top: -104}} />
         </div>
         <HandPath

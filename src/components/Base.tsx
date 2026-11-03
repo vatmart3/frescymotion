@@ -2,6 +2,7 @@ import React from 'react';
 import {AbsoluteFill} from 'remotion';
 import {C, CONFIG} from '../config';
 import {boilSeed, useT} from '../lib/motion';
+import {useIsNet} from '../lib/style';
 
 /**
  * Filtres SVG partagés : "wobble" pour les traits à la main (4 graines → boiling line).
@@ -23,7 +24,8 @@ export const Defs: React.FC = () => (
 /** Classe CSS filter pour un trait "qui tremble" */
 export const useWobble = () => {
   const t = useT();
-  return `url(#wobble-${boilSeed(t)})`;
+  const net = useIsNet();
+  return net ? 'none' : `url(#wobble-${boilSeed(t)})`;
 };
 
 /** Grain papier très léger, en multiply, au-dessus de tout. */

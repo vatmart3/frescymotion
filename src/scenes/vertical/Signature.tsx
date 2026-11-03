@@ -7,6 +7,7 @@ import {ArrowRight} from '../../components/Icons';
 import {KineticLines} from '../../components/Kinetic';
 import {Leaf} from '../../components/Leaf';
 import {EASE_IN_OUT, EASE_OUT, sp, tw, useT} from '../../lib/motion';
+import {useTilt} from '../../lib/style';
 
 const TX = CONFIG.vertical.texts.signature;
 export const SIGN_T = {a: [14, 20], b: [30, 35, 40, 45], strike: 50, retract: 62, note: 66, cta: 62, leaf: 80};
@@ -41,6 +42,7 @@ export const LandingLeaf: React.FC<{size: number; at: number; color?: string; ve
  */
 export const Signature: React.FC = () => {
   const t = useT();
+  const tilt = useTilt();
   const SIZE_A = 150;
   const SIZE_B = 238;
   const cta = (i: number) => tw(t, [SIGN_T.cta + i * 4, SIGN_T.cta + i * 4 + 9], [0, 1], EASE_OUT);
@@ -105,7 +107,7 @@ export const Signature: React.FC = () => {
         </div>
 
         <div style={{position: 'absolute', left: 690, top: 970}}>
-          <HandText lines={[TX.note]} at={SIGN_T.note} size={86} rotate={-8} />
+          <HandText lines={[TX.note]} at={SIGN_T.note} size={86} rotate={tilt(-8)} />
         </div>
 
         <div style={{position: 'absolute', left: 68, top: 1156}}>

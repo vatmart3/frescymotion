@@ -7,7 +7,8 @@
     "studio": "remotion studio",
     "render:vertical": "remotion render Frescy-Vertical out/frescy-vertical-9x16.mp4 --codec=h264 --crf=16",
     "render:horizontal": "remotion render Frescy-Horizontal out/frescy-horizontal-16x9.mp4 --codec=h264 --crf=16",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "render:vertical-b": "remotion render Frescy-Vertical-B out/frescy-vertical-B-net-9x16-60fps.mp4 --codec=h264 --crf=12 --image-format=png --x264-preset=slow"
   },
   "dependencies": {
     "@remotion/cli": "4.0.540",
